@@ -38,7 +38,7 @@ def print_lectures(lectures) -> str:
             if flag == 0:
                 # first line would be a module
                 # so use a h1 for better syntax
-                string += "# {}".format(lecture)
+                string += "## {}".format(lecture)
                 flag = 1
             else:
                 string += "* {}".format(lecture)
@@ -68,15 +68,16 @@ def toc(url, online):
 def write_toc_file(url, online):
     # url = "https://www.udemy.com/course/understanding-typescript/"
     table_of_contents = ""
+    course_name = url.split('/')[-2]
     if online:
         # get the data from the website first
         table_of_contents = get_table_of_contents(url)
 
-        with open('toc_{}.txt'.format(url.split('/')[-2]), 'w') as f:
+        with open('toc_{}.txt'.format(course_name), 'w') as f:
             f.write(table_of_contents)
     else:
         # get the data from the file if stored
-        with open('toc_{}.txt'.format(url.split('/')[-2]), 'r') as f:
+        with open('toc_{}.txt'.format(course_name), 'r') as f:
             table_of_contents = ''.join(f.readlines())
 
     outfile = ""
@@ -94,7 +95,8 @@ def write_toc_file(url, online):
         outfile += print_lectures(lectures)
 
     # TODO: remove print statements and replace them with string concats
-    with open('toc_{}.md'.format(url.split('/')[-2]), 'w') as f:
+    with open('toc_{}.md'.format(course_name), 'w') as f:
+        f.write("# {}\n".format(course_name.capitalize().replace('-', ' ')))
         f.write(outfile)
 
 

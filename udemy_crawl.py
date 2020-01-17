@@ -11,7 +11,7 @@ def cli():
 
 
 def get_table_of_contents(url: str) -> str:
-    # TODO: add bot protection fails
+    #  TODO: add bot protection fails
     driver = webdriver.Chrome()
     driver.get(url)
 
@@ -23,7 +23,7 @@ def get_table_of_contents(url: str) -> str:
     time.sleep(2)
     table_of_contents.find_element_by_class_name("sections-toggle").click()
 
-    # FIXME: not all lectures are returned in the table of contents
+    #  FIXME: not all lectures are returned in the table of contents
     return table_of_contents.text
 
 
@@ -53,7 +53,7 @@ def print_lectures(lectures) -> str:
               help='get the website online')
 @click.argument('url', default='urls.txt', type=click.STRING)
 def toc(url, online):
-    # TODO: check if url ends with txt so read it or else go to site
+    #  TODO: check if url ends with txt so read it or else go to site
     if url.endswith(".txt"):
         # Loop
         with open(url, 'r') as f:
@@ -94,7 +94,7 @@ def write_toc_file(url, online):
 
         outfile += print_lectures(lectures)
 
-    # TODO: remove print statements and replace them with string concats
+    #  TODO: remove print statements and replace them with string concats
     with open('toc_{}.md'.format(course_name), 'w') as f:
         f.write("# {}\n".format(course_name.capitalize().replace('-', ' ')))
         f.write(outfile)
